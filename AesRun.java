@@ -51,6 +51,45 @@ class Aes{
     }
          */
 
+    void shiftRows(){
+            // row 1 would remain same.....
+
+        // 2nd row left shift by one;
+        byte shift=0;
+        byte rowend=matrix[1][0];
+        for(int i=1;i<matrix.length;i++){
+
+            shift=matrix[1][i];
+            matrix[1][i-1]=shift;
+        }
+        matrix[1][matrix.length-1]=rowend;
+
+         shift=0;
+
+        //third row left shift by two 
+        shift=matrix[2][2];
+        matrix[2][2]=matrix[2][0];
+        matrix[2][0]=shift;
+        shift=matrix[2][3];
+        matrix[2][3]=matrix[2][1];
+        matrix[2][1]=shift;
+
+        shift=0;
+        byte rowstart=matrix[3][3];
+
+        //4th row left shift by three
+        for(int i=matrix.length-1;i>0;i--){
+
+            shift=matrix[3][i-1];
+            System.out.println(i);
+            matrix[3][i]=shift;
+        }
+        matrix[3][0]=rowstart;
+
+    }
+
+
+
     void printSbox(){
 
     
@@ -119,10 +158,13 @@ class Aes{
         Aes  obj= new Aes();
         obj.setupMatrix();
         obj.printMatrix();
-        System.out.println("output before substitution" );
-        obj.substituteBytes();
-        System.out.println("output after substitution" );
+        obj.shiftRows();
         obj.printMatrix();
+
+        // System.out.println("output before substitution" );
+        // obj.substituteBytes();
+        // System.out.println("output after substitution" );
+        // obj.printMatrix();
 
 
     }
